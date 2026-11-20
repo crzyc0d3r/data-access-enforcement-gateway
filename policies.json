@@ -1,0 +1,26 @@
+{
+  "resource": "compensation_db",
+  "enforced": true,
+  "policies": [
+    {
+      "name": "HR full access",
+      "description": "HR and platform admins get unrestricted access to the compensation database.",
+      "groups": ["hr", "admin"],
+      "tables": {
+        "employees": { "access": "full" }
+      }
+    },
+    {
+      "name": "Engineering Managers",
+      "description": "Engineering managers may read compensation rows for their own team only.",
+      "groups": ["eng-managers"],
+      "tables": {
+        "employees": {
+          "access": "read",
+          "row_filter": "team = 'Engineering'",
+          "columns": ["id", "name", "team", "role", "salary", "last_raise"]
+        }
+      }
+    }
+  ]
+}
